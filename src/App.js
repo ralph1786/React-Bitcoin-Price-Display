@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import BitcoinCard from "./components/display";
+import React, { Component } from "react";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import DisplayBitcoinCard from "./containers/Display";
 
-import './App.css';
+import "./App.css";
 
 class App extends Component {
-
   render() {
     return (
       <MuiThemeProvider>
-        <div className='container'>
-          <BitcoinCard />
-        </div>  
+        <div className="container">
+          <DisplayBitcoinCard />
+        </div>
       </MuiThemeProvider>
-      
     );
   }
 }
