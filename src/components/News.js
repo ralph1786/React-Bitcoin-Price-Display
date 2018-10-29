@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import NewsList from "./NewsList";
 
-//Once you receive the data you need to create a functional component.
+//Once you receive the data, you need to create a functional component.
 //See NewsList component for more information.
 class News extends Component {
   state = {
-    news: []
+    news: [],
+    latestNews: false
   };
 
   componentDidMount() {
@@ -27,10 +28,21 @@ class News extends Component {
       .catch(err => console.log(err));
   };
 
+  showNewsHandler = () => {
+    this.setState({
+      latestNews: !this.state.latestNews
+    });
+  };
+
   render() {
+    const moreNews = this.state.latestNews ? (
+      <NewsList articles={this.state.news} />
+    ) : null;
+
     return (
       <div>
-        <NewsList articles={this.state.news} />
+        <button onClick={this.showNewsHandler}>Latest News</button>
+        {moreNews}
       </div>
     );
   }
