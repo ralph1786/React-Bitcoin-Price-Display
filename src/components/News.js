@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import NewsList from "./NewsList";
 
-//Once you receive the data, you need to create a functional component.
-//See NewsList component for more information.
 class News extends Component {
   state = {
     news: [],
@@ -35,14 +33,14 @@ class News extends Component {
   };
 
   render() {
-    const moreNews = this.state.latestNews ? (
-      <NewsList articles={this.state.news} />
-    ) : null;
+    const newsArticles = this.state.news.map((article, index) => (
+      <NewsList key={index} article={article} />
+    ));
 
     return (
       <div>
         <button onClick={this.showNewsHandler}>Latest News</button>
-        {moreNews}
+        {this.state.latestNews ? newsArticles : null}
       </div>
     );
   }
