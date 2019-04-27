@@ -3,34 +3,27 @@ import "./NewsList.css";
 
 //You need to iterate through the array articles using the map function.
 const NewsList = props => {
-  const newsList = props.articles.length ? (
-    props.articles.map((article, index) => {
-      return (
-        <div key={index} className="card">
-          <div>
-            <h3>
-              <strong>Author: </strong> {article.author}
-            </h3>
-            <p>
-              <strong>Title: </strong> "{article.title}
-              ."
-            </p>
-            <p>
-              <strong>Summary: </strong>
-              {article.description}
-            </p>
-          </div>
-          <button>
-            <a href={article.url}>Read More</a>
-          </button>
-        </div>
-      );
-    })
-  ) : (
-    <p>No News To Report!</p>
+  const { author, title, description, url } = props.article;
+  return (
+    <div className="card">
+      <div>
+        <h3>
+          <strong>Author: </strong> {author}
+        </h3>
+        <p>
+          <strong>Title: </strong> "{title}
+          ."
+        </p>
+        <p>
+          <strong>Summary: </strong>
+          {description}
+        </p>
+      </div>
+      <button>
+        <a href={url}>Read More</a>
+      </button>
+    </div>
   );
-
-  return <div>{newsList}</div>;
 };
 
 export default NewsList;
