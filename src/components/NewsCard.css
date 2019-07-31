@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Merienda|Montserrat");
+
+:root {
+  --primary-color: #fcfcfc;
+  --secondary-color: #6ddda1;
+  --shadow-color: rgb(191, 192, 190);
+}
+
+.card {
+  background-color: var(--primary-color);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.3em;
+}
+
+.card > div {
+  margin: 10px;
+}
+
+.card:hover {
+  -webkit-box-shadow: 7px 6px 13px 0px var(--shadow-color);
+  -moz-box-shadow: 7px 6px 13px 0px var(--shadow-color);
+  box-shadow: 7px 6px 13px 0px var(--shadow-color);
+  transform: scale(1.01);
+  transition: all 1s ease-in;
+}
+
+.card a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  font-size: 0.75em;
+}
+
+.card a:hover {
+  color: var(--secondary-color);
+}
