@@ -1,20 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Merienda|Montserrat");
-
 :root {
   --primary-color: #f0ede7;
   --secondary-color: #6ddda1;
-}
-
-.card {
-  background-color: var(--primary-color);
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  -webkit-box-shadow: 7px 6px 13px 0px rgba(129, 194, 113, 1);
-  -moz-box-shadow: 7px 6px 13px 0px rgba(129, 194, 113, 1);
-  box-shadow: 7px 6px 13px 0px rgba(129, 194, 113, 1);
-}
-
-.card > div {
-  margin: 10px;
 }
 
 button {
@@ -23,7 +9,7 @@ button {
   border: none;
   position: relative;
   height: 50px;
-  font-size: 1em;
+  font-size: 1.3em;
   padding: 5px 5px;
   cursor: pointer;
   transition: 800ms ease all;
@@ -56,9 +42,4 @@ button:hover:before,
 button:hover:after {
   width: 100%;
   transition: 800ms ease all;
-}
-
-a {
-  text-decoration: none;
-  color: rgb(235, 145, 62);
 }
