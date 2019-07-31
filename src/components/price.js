@@ -1,36 +1,56 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 
 class Price extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currency: "USD",
-      price: ""
-    };
-  }
+  state = {
+    currency: this.props.currency,
+    price: "",
+    currencyName: ""
+  };
 
   componentDidMount() {
     this.getBitcoinPrice();
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.currency !== nextProps.currency) {
+      return {
+        currency: nextProps.currency
+      };
+    }
+    return null;
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currency !== prevState.currency) {
+      this.getBitcoinPrice();
+    }
+  }
 
-  getBitcoinPrice() {
+  getBitcoinPrice = () => {
     axios
       .get(
         "https://api.coindesk.com/v1/bpi/currentprice/" +
           this.state.currency +
           ".json"
       )
-      .then(response => {
-        this.setState({ price: response.data.bpi.USD.rate });
+      .then(res => {
+        const { rate, description } = res.data.bpi[this.state.currency];
+        this.setState({ price: rate, currencyName: description });
       })
       .catch(err => {
         console.log(err);
       });
-  }
+  };
 
   render() {
-    return <div style={{ color: "green" }}>$ {this.state.price}</div>;
+    const { price, currencyName } = this.state;
+    return (
+      <Fragment>
+        <div style={{ display: "inline-block" }}>
+          Price: <span style={{ color: "#1fd907" }}>{price}</span>
+        </div>
+        <span style={{ marginLeft: "20px" }}>{currencyName}</span>
+      </Fragment>
+    );
   }
 }
 
