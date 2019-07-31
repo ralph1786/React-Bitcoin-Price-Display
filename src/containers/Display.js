@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Display.css";
 import {
   Card,
@@ -11,20 +11,42 @@ import {
 import Price from "../components/Price";
 import News from "../components/News";
 import bitcoinImage from "../assets/goldenbitcoin.jpg";
+import DropDownMenu from "../components/DropDownMenu";
 
-const displayBitcoinCard = () => (
-  <Card>
-    <CardHeader title="Bitcoin Price" subtitle="US Dollars" />
-    <CardMedia>
-      <img src={bitcoinImage} alt="" />
-    </CardMedia>
-    <CardTitle title={<Price />} />
-    <CardText>
-      <h2>Latest Bitcoin News</h2>
-      <News />
-    </CardText>
-    <CardActions />
-  </Card>
-);
+class displayBitcoinCard extends Component {
+  state = {
+    currency: "USD"
+  };
+
+  handleChange = e => {
+    this.setState(
+      {
+        currency: e.target.value
+      },
+      () => console.log(this.state.currency)
+    );
+  };
+
+  render() {
+    return (
+      <Card>
+        <CardHeader title="Bitcoin Price" subtitle={this.state.currency} />
+        <DropDownMenu
+          value={this.state.currency}
+          handleChange={this.handleChange}
+        />
+        <CardMedia>
+          <img src={bitcoinImage} alt="" />
+        </CardMedia>
+        <CardTitle title={<Price currency={this.state.currency} />} />
+        <CardText>
+          <h2>Latest Bitcoin News</h2>
+          <News />
+        </CardText>
+        <CardActions />
+      </Card>
+    );
+  }
+}
 
 export default displayBitcoinCard;
