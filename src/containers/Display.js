@@ -9,7 +9,7 @@ import {
   CardText
 } from "material-ui/Card";
 import Price from "../components/Price";
-import News from "../components/News";
+import NewsList from "../components/NewsList";
 import bitcoinImage from "../assets/goldenbitcoin.jpg";
 import DropDownMenu from "../components/DropDownMenu";
 
@@ -38,7 +38,7 @@ class displayBitcoinCard extends Component {
         <CardTitle title={<Price currency={this.state.currency} />} />
         <CardText>
           <h2>Latest Bitcoin News</h2>
-          <News />
+          <NewsList />
         </CardText>
         <CardActions />
       </Card>
