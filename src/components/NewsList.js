@@ -1,29 +1,49 @@
-import React from "react";
+import React, { Component } from "react";
+import axios from "axios";
+import NewsCard from "./NewsCard";
 import "./NewsList.css";
 
-//You need to iterate through the array articles using the map function.
-const NewsList = props => {
-  const { author, title, description, url } = props.article;
-  return (
-    <div className="card">
-      <div>
-        <h3>
-          <strong>Author: </strong> {author}
-        </h3>
-        <p>
-          <strong>Title: </strong> "{title}
-          ."
-        </p>
-        <p>
-          <strong>Summary: </strong>
-          {description}
-        </p>
-      </div>
-      <button>
-        <a href={url}>Read More</a>
-      </button>
-    </div>
-  );
-};
+class News extends Component {
+  state = {
+    news: [],
+    latestNews: false
+  };
 
-export default NewsList;
+  componentDidMount() {
+    this.getBitcoinNews();
+  }
+
+  getBitcoinNews = () => {
+    axios
+      .get(
+        "https://newsapi.org/v2/everything?q=bitcoin&apiKey=3a988bb9e17f4ef2a7a8099740a3a3f1"
+      )
+      .then(res => {
+        this.setState({
+          news: res.data.articles
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  showNewsHandler = () => {
+    this.setState({
+      latestNews: !this.state.latestNews
+    });
+  };
+
+  render() {
+    const newsArticles = this.state.news.map((article, index) => (
+      <NewsCard key={index} article={article} />
+    ));
+
+    return (
+      <div>
+        <button onClick={this.showNewsHandler}>Latest News</button>
+        {this.state.latestNews ? newsArticles : null}
+      </div>
+    );
+  }
+}
+
+export default News;
