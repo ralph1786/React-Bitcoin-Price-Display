@@ -18,7 +18,6 @@ class News extends Component {
         "https://newsapi.org/v2/everything?q=bitcoin&apiKey=3a988bb9e17f4ef2a7a8099740a3a3f1"
       )
       .then(res => {
-        console.log(res.data);
         this.setState({
           news: res.data.articles
         });
