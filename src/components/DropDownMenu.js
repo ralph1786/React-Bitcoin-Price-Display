@@ -1,7 +1,39 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class DropDownMenu extends Component {
+  state = {
+    listCurrencyNations: []
+  };
+
+  getListCurrencyNations = async () => {
+    try {
+      let response = await axios.get(
+        "https://cors-anywhere.herokuapp.com/https://api.coindesk.com/v1/bpi/supported-currencies.json"
+      );
+      let data = response.data;
+      this.setState({
+        listCurrencyNations: data
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    this.getListCurrencyNations();
+  }
+
   render() {
+    const listOfNations = this.state.listCurrencyNations.map(
+      (nation, index) => {
+        return (
+          <option key={index} value={nation.currency}>
+            {nation.country}
+          </option>
+        );
+      }
+    );
     return (
       <div>
         <select
@@ -9,11 +41,7 @@ class DropDownMenu extends Component {
           value={this.props.value}
           onChange={this.props.handleChange}
         >
-          <option value="USD">USD</option>
-          <option value="BRL">BRL</option>
-          <option value="CNY">CNY</option>
-          <option value="EUR">EUR</option>
-          <option value="JPY">JPY</option>
+          {listOfNations}
         </select>
       </div>
     );
