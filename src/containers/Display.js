@@ -19,12 +19,9 @@ class displayBitcoinCard extends Component {
   };
 
   handleChange = e => {
-    this.setState(
-      {
-        currency: e.target.value
-      },
-      () => console.log(this.state.currency)
-    );
+    this.setState({
+      currency: e.target.value
+    });
   };
 
   render() {
