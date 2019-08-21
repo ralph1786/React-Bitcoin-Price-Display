@@ -1,49 +1,41 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard";
 import "./NewsList.css";
 
-class News extends Component {
-  state = {
-    news: [],
-    latestNews: false
-  };
+const News = () => {
+  const [news, setNews] = useState([]);
+  const [latestNews, setLatestNews] = useState(false);
 
-  componentDidMount() {
-    this.getBitcoinNews();
-  }
-
-  getBitcoinNews = () => {
+  const getBitcoinNews = () => {
     axios
       .get(
         "https://newsapi.org/v2/everything?q=bitcoin&apiKey=3a988bb9e17f4ef2a7a8099740a3a3f1"
       )
       .then(res => {
-        this.setState({
-          news: res.data.articles
-        });
+        setNews(res.data.articles);
       })
       .catch(err => console.log(err));
   };
 
-  showNewsHandler = () => {
-    this.setState({
-      latestNews: !this.state.latestNews
-    });
+  useEffect(() => {
+    getBitcoinNews();
+  }, []);
+
+  const showNewsHandler = () => {
+    setLatestNews(!latestNews);
   };
 
-  render() {
-    const newsArticles = this.state.news.map((article, index) => (
-      <NewsCard key={index} article={article} />
-    ));
+  const newsArticles = news.map((article, index) => (
+    <NewsCard key={index} article={article} />
+  ));
 
-    return (
-      <div>
-        <button onClick={this.showNewsHandler}>Latest News</button>
-        {this.state.latestNews ? newsArticles : null}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <button onClick={showNewsHandler}>Latest News</button>
+      {latestNews ? newsArticles : null}
+    </div>
+  );
+};
 
 export default News;
