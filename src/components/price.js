@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import axios from "axios";
 
 class Price extends Component {
