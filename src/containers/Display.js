@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./Display.css";
 import {
   Card,
@@ -13,37 +13,27 @@ import NewsList from "../components/NewsList";
 import bitcoinImage from "../assets/goldenbitcoin.jpg";
 import DropDownMenu from "../components/DropDownMenu";
 
-class displayBitcoinCard extends Component {
-  state = {
-    currency: "USD"
+const DisplayBitcoinCard = () => {
+  const [currency, setCurrency] = useState("USD");
+
+  const handleChange = e => {
+    setCurrency(e.target.value);
   };
+  return (
+    <Card>
+      <CardHeader title="Bitcoin Price" subtitle={currency} />
+      <DropDownMenu value={currency} handleChange={handleChange} />
+      <CardMedia>
+        <img src={bitcoinImage} alt="" />
+      </CardMedia>
+      <CardTitle title={<Price currency={currency} />} />
+      <CardText>
+        <h2>Latest Bitcoin News</h2>
+        <NewsList />
+      </CardText>
+      <CardActions />
+    </Card>
+  );
+};
 
-  handleChange = e => {
-    this.setState({
-      currency: e.target.value
-    });
-  };
-
-  render() {
-    return (
-      <Card>
-        <CardHeader title="Bitcoin Price" subtitle={this.state.currency} />
-        <DropDownMenu
-          value={this.state.currency}
-          handleChange={this.handleChange}
-        />
-        <CardMedia>
-          <img src={bitcoinImage} alt="" />
-        </CardMedia>
-        <CardTitle title={<Price currency={this.state.currency} />} />
-        <CardText>
-          <h2>Latest Bitcoin News</h2>
-          <NewsList />
-        </CardText>
-        <CardActions />
-      </Card>
-    );
-  }
-}
-
-export default displayBitcoinCard;
+export default DisplayBitcoinCard;
