@@ -1,52 +1,40 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-class DropDownMenu extends Component {
-  state = {
-    listCurrencyNations: []
-  };
+const DropDownMenu = props => {
+  const [listCurrencyNations, setListCurrencyNations] = useState([]);
 
-  getListCurrencyNations = async () => {
+  const getListCurrencyNations = async () => {
     try {
       let response = await axios.get(
         "https://cors-anywhere.herokuapp.com/https://api.coindesk.com/v1/bpi/supported-currencies.json"
       );
       let data = response.data;
-      this.setState({
-        listCurrencyNations: data
-      });
+      setListCurrencyNations(data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  componentDidMount() {
-    this.getListCurrencyNations();
-  }
+  useEffect(() => {
+    getListCurrencyNations();
+  }, []);
 
-  render() {
-    const listOfNations = this.state.listCurrencyNations.map(
-      (nation, index) => {
-        return (
-          <option key={index} value={nation.currency}>
-            {nation.country}
-          </option>
-        );
-      }
-    );
+  const listOfNations = listCurrencyNations.map((nation, index) => {
     return (
-      <div>
-        <select
-          style={styling}
-          value={this.props.value}
-          onChange={this.props.handleChange}
-        >
-          {listOfNations}
-        </select>
-      </div>
+      <option key={index} value={nation.currency}>
+        {nation.country}
+      </option>
     );
-  }
-}
+  });
+  return (
+    <div>
+      <select style={styling} value={props.value} onChange={props.handleChange}>
+        {listOfNations}
+      </select>
+    </div>
+  );
+};
 
 const styling = {
   width: "100px",
